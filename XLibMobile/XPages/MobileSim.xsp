@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	pageTitle="XPages Mobile Simulator">
+<!--// This XPage is a web browser simulator for testing iPhone, Android, and Blackberry -->
+<!--// In order to use this you need to include Custom Controls:  Frame_Android, Frame_iPhone, & Frame_Blackberry-->
+<!--// Also, you need 24 images  (like iph_top.jpg )-->
+<!--// For testing, add the XPage as a parameter in the URL-->
+<!--// Ex.  ../db.nsf/MobileSim.xsp?openxpage&mPage=m_main.xsp-->
+
+	<script type="text/javascript">
+		dojo.addOnLoad(function() {
+			if(navigator.userAgent){
+				var	agent=navigator.userAgent;
+				if(agent.indexOf("iPad") >= 0
+					|| agent.indexOf("iPhone") >= 0
+					|| agent.indexOf("iPod") >= 0
+					|| agent.indexOf("Android") >= 0
+					|| agent.indexOf("Blackberry") >= 0) {
+					location.href = "mobileDemo.xsp";
+				}
+			}
+		});
+	</script>
+
+	<xc:OneUILayout id="cc4cconeuilayout"
+		navigationPath="/Mobile/Home">
+		<xp:panel>Extension Library Demo - Mobile</xp:panel>
+		<xp:br></xp:br>
+		<xp:tabbedPanel id="MobileViews">
+			<xp:tabPanel label="iPhone" id="tabPanel1">
+				<xc:Frame_iPhone id="Frame_iPhone" page="#{javascript:param.get('mPage')}"></xc:Frame_iPhone>
+			</xp:tabPanel>
+			<xp:tabPanel label="Android" id="tabPanel2">
+				<xc:Frame_Android id="Frame_Android"
+					page="#{javascript:param.get('mPage')}">
+				</xc:Frame_Android>
+			</xp:tabPanel>
+			<xp:tabPanel label="Blackberry" id="tabPanel3">
+				<xc:Frame_Blackberry id="Frame_Blackberry"
+					page="#{javascript:param.get('mPage')}">
+				</xc:Frame_Blackberry>
+			</xp:tabPanel>
+		</xp:tabbedPanel>
+	</xc:OneUILayout>
+</xp:view>
